@@ -1,0 +1,48 @@
+{% include 'material/includes/material_css.html' %}
+{% include 'material/includes/material_js.html' %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title>
+        
+        {% block title %}
+            Django Auth
+        {% endblock title %}
+            
+    </title>
+</head>
+<body>
+        <nav>
+            <div class="nav-wrapper">
+            <a href="#" class="brand-logo right"><i class="large material-icons">desktop_mac</i></a>
+            <ul id="nav-mobile" class="left hide-on-med-and-down">
+                <li><a href="{% url 'home' %}">Home</a></li>
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'logout' %}">Logout</a></li>
+                {% else %}
+                    <li><a href="{% url 'login' %}">Login</a></li>
+                    <li><a href="{% url 'signup' %}">Sign Up</a></li>
+                {% endif %}
+                
+            </ul>
+            </div>
+        </nav>
+    <div class="container">
+        {% if messages %}
+                
+            {% for message in messages %}
+                <script>M.toast({html: "{{message}}", classes: 'green rounded', displayLength:2000});</script>
+            {% endfor %}
+
+        {% endif %}
+        {% block content %}
+                
+        {% endblock content %}
+    </div>
+</body>
+</html>
